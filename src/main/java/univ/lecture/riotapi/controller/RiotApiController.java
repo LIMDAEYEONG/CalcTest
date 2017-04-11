@@ -41,7 +41,6 @@ public class RiotApiController {
         final int teamId = 8; //조번호(8조) 
         double mathResult;
         
-        String response = restTemplate.postForObject(url, null, String.class);
         //Map<String, Object> parsedMap = new JacksonJsonParser().parseMap(response);
         //parsedMap.forEach((key, value) -> log.info(String.format("key [%s] type [%s] value [%s]", key, value.getClass(), value)));
         //Map<String, Object> summonerDetail = (Map<String, Object>) parsedMap.values().toArray()[0];
@@ -58,8 +57,12 @@ public class RiotApiController {
 		long now = Long.parseLong(strTime);
 		System.out.println(now);
 
-		JSONResult result = new JSONResult(teamId, now, mathResult, "response here");
+		String response = restTemplate.postForObject("https://demo2446904.mockable.io/api/v1/answer", null, String.class);
+		
+		JSONResult result = new JSONResult(teamId, now, mathResult, response);
 
+		
+		
         return result;
     }
 }
