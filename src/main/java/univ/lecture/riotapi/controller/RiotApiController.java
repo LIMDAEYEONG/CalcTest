@@ -62,9 +62,8 @@ public class RiotApiController {
 		String strTime = dateFormat.format((Calendar.getInstance()).getTime());
 		long now = Long.parseLong(strTime);
 		System.out.println(now);		
-		JSONResult result = new JSONResult(teamId, now, mathResult);
+		JSONResult result = new JSONResult(teamId, now, mathResult, response);
 		
-		System.out.println(response);		
 		String endPointResponse = restTemplate.postForObject(endPointUrl, result, String.class);
 		
         return result;
