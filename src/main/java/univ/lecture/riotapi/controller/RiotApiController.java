@@ -30,18 +30,22 @@ public class RiotApiController {
     private RestTemplate restTemplate;
 
     @Value("${riot.api.endpoint}")
-    private String riotApiEndpoint;
+    private String Endpoint;
 
+    @Value("${riot.api.responseEndpoint}")
+    private String responseEndpoint;
+    
     @Value("${riot.api.key}")
     private String riotApiKey;
-
+    
     @RequestMapping(value = "/calc/{name}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public JSONResult queryResult(@PathVariable("name") @RequestBody String expression) throws UnsupportedEncodingException {
-        final String url = "http://52.79.162.52:8080/api/v1/answer";
+        final String responseUrl = responseEndpoint;
+        final String endPointUrl = Endpoint;
         final int teamId = 8; //조번호(8조) 
         double mathResult;
         
-        String response = restTemplate.postForObject(url, null, String.class);
+        String response = restTemplate.postForObject(responseUrl, null, String.class);
         
         //Map<String, Object> parsedMap = new JacksonJsonParser().parseMap(response);
         //parsedMap.forEach((key, value) -> log.info(String.format("key [%s] type [%s] value [%s]", key, value.getClass(), value)));
@@ -59,9 +63,9 @@ public class RiotApiController {
 		long now = Long.parseLong(strTime);
 		System.out.println(now);
 		
-		JSONResult result = new JSONResult(teamId, now, mathResult, response);
-
+		JSONResult result = new JSONResult(teamId, now, mathResult);
 		
+		String endPointResponse = restTemplate.postForObject(endPointUrl, result, String.class);
 		
         return result;
     }
