@@ -34,16 +34,16 @@ public class RiotApiController {
     @Value("${riot.api.key}")
     private String riotApiKey;
 
-    @RequestMapping(value = "/calc/{name}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/calc/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public JSONResult queryResult(@PathVariable("name") String expression) throws UnsupportedEncodingException {
-        final String url = riotApiEndpoint + "/summoner/by-name/" +
+        final String url = riotApiEndpoint + "/calc/" +
         		expression +
                 "?api_key=" +
                 riotApiKey;
         final int teamId = 8; //조번호(8조) 
         double mathResult;
         
-        //String response = restTemplate.postForObject(url, null, String.class);
+        String response = restTemplate.postForObject(url, null, String.class);
         //Map<String, Object> parsedMap = new JacksonJsonParser().parseMap(response);
         //parsedMap.forEach((key, value) -> log.info(String.format("key [%s] type [%s] value [%s]", key, value.getClass(), value)));
         //Map<String, Object> summonerDetail = (Map<String, Object>) parsedMap.values().toArray()[0];

@@ -57,9 +57,9 @@ public class SwaggerConfiguration {
         return new ApiInfoBuilder()
                 .title(applicationTitle)
                 .description(applicationDescription)
-                .contact(new Contact("riot-kr", "http://www.riotgames.com/", "kor-dev-rg@riotgames.com"))
+                .contact(new Contact("team8", "http://cse.cnu.ac.kr/", "lsseebx38@gmail.com"))
                 .license("Apache License Version 2.0")
-                .licenseUrl("https://github.com/springfox/springfox/blob/master/LICENSE")
+                .licenseUrl("https://github.com/isseebx123/hw05")
                 .version("2.0")
                 .build();
     }
