@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,8 +35,8 @@ public class RiotApiController {
     @Value("${riot.api.key}")
     private String riotApiKey;
 
-    @RequestMapping(value = "/calc/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public JSONResult queryResult(@PathVariable("name") String expression) throws UnsupportedEncodingException {
+    @RequestMapping(value = "/calc/{name}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public JSONResult queryResult(@PathVariable("name") @RequestBody String expression) throws UnsupportedEncodingException {
         final String url = riotApiEndpoint + "/api/v1/calc/" + expression;
         final int teamId = 8; //조번호(8조) 
         double mathResult;
@@ -57,9 +58,7 @@ public class RiotApiController {
 		long now = Long.parseLong(strTime);
 		System.out.println(now);
 
-		String response = restTemplate.getForObject(url, String.class, new JSONResult(teamId, now, mathResult));
-		
-		JSONResult result = new JSONResult(teamId, now, mathResult, response);
+		JSONResult result = new JSONResult(teamId, now, mathResult, "response here");
 
         return result;
     }
