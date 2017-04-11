@@ -37,9 +37,11 @@ public class RiotApiController {
 
     @RequestMapping(value = "/calc/{name}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public JSONResult queryResult(@PathVariable("name") @RequestBody String expression) throws UnsupportedEncodingException {
-        final String url = riotApiEndpoint + "/api/v1/calc/" + expression;
+        final String url = "http://52.79.162.52:8080/api/v1/answer";
         final int teamId = 8; //조번호(8조) 
         double mathResult;
+        
+        String response = restTemplate.postForObject(url, null, String.class);
         
         //Map<String, Object> parsedMap = new JacksonJsonParser().parseMap(response);
         //parsedMap.forEach((key, value) -> log.info(String.format("key [%s] type [%s] value [%s]", key, value.getClass(), value)));
@@ -56,8 +58,6 @@ public class RiotApiController {
 		String strTime = dateFormat.format((Calendar.getInstance()).getTime());
 		long now = Long.parseLong(strTime);
 		System.out.println(now);
-
-		String response = restTemplate.postForObject("https://demo2446904.mockable.io/api/v1/answer", null, String.class);
 		
 		JSONResult result = new JSONResult(teamId, now, mathResult, response);
 
