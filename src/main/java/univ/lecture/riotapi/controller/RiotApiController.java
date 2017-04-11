@@ -34,7 +34,7 @@ public class RiotApiController {
     @Value("${riot.api.key}")
     private String riotApiKey;
 
-    @RequestMapping(value = "/calc/{name}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/calc/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public JSONResult queryResult(@PathVariable("name") String expression) throws UnsupportedEncodingException {
         final String url = riotApiEndpoint + "/calc/" + expression;
         final int teamId = 8; //조번호(8조) 
@@ -57,7 +57,7 @@ public class RiotApiController {
 		long now = Long.parseLong(strTime);
 		System.out.println(now);
 		
-		JSONResult result = new JSONResult(teamId, now, mathResult, "response here");
+		JSONResult result = new JSONResult(teamId, now, mathResult);
 
         return result;
     }
