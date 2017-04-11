@@ -37,7 +37,7 @@ public class RiotApiController {
 
     @RequestMapping(value = "/calc/{name}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public JSONResult queryResult(@PathVariable("name") @RequestBody String expression) throws UnsupportedEncodingException {
-        final String url = "https://demo2446904.mockable.io/api/v1/answer";
+        final String url = "http://52.79.162.52:8080/api/v1/answer";
         final int teamId = 8; //조번호(8조) 
         double mathResult;
         
